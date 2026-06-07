@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Korvio — A Digital Kingdom of Forgotten Maps. Uncover lost continents, hidden civilizations, and legendary routes erased from history.">
+  <meta name="keywords" content="Korvio, forgotten maps, ancient atlas, exploration, lost continents, cartography">
+  <meta name="author" content="Korvio">
+  <meta property="og:title" content="Korvio — Kingdom of Forgotten Maps">
+  <meta property="og:description" content="Discover a secret atlas locked away for centuries. Every scroll reveals a new piece of a forgotten world.">
+  <meta property="og:type" content="website">
+  <title>Korvio — Kingdom of Forgotten Maps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#sea-of-lost-directions" class="skip-link">Skip to exploration</a>
+
+  <!-- Fixed Compass Navigation -->
+  <nav class="compass-nav" aria-label="Atlas navigation">
+    <button class="compass-trigger" aria-expanded="false" aria-controls="compass-wheel" aria-label="Open atlas compass navigation">
+      <svg class="compass-icon" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="0.75" opacity="0.6"/>
+        <g class="compass-needle-group">
+          <polygon points="40,12 44,40 40,36 36,40" fill="#B98D58"/>
+          <polygon points="40,68 44,40 40,44 36,40" fill="#6F4E37"/>
+        </g>
+        <circle cx="40" cy="40" r="4" fill="#2E241B"/>
+        <text x="40" y="8" text-anchor="middle" font-size="6" fill="currentColor" font-family="Cinzel">N</text>
+        <text x="72" y="43" text-anchor="middle" font-size="5" fill="currentColor" font-family="Cinzel">E</text>
+        <text x="40" y="78" text-anchor="middle" font-size="5" fill="currentColor" font-family="Cinzel">S</text>
+        <text x="8" y="43" text-anchor="middle" font-size="5" fill="currentColor" font-family="Cinzel">W</text>
+      </svg>
+    </button>
+    <div class="compass-wheel" id="compass-wheel" hidden>
+      <ul class="wheel-items" role="menu">
+        <li role="none"><a href="#hidden-continents" role="menuitem" data-label="Continents">Continents</a></li>
+        <li role="none"><a href="#routes-of-explorers" role="menuitem" data-label="Routes">Routes</a></li>
+        <li role="none"><a href="#archive-of-discoveries" role="menuitem" data-label="Archives">Archives</a></li>
+        <li role="none"><a href="#obsidian-harbor" role="menuitem" data-label="Harbor">Harbor</a></li>
+        <li role="none"><a href="#sky-of-legends" role="menuitem" data-label="Constellations">Constellations</a></li>
+        <li role="none"><a href="#last-uncharted-land" role="menuitem" data-label="Expedition Log">Expedition Log</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="atlas">
+    <!-- SECTION 1: The Sea of Lost Directions -->
+    <section id="sea-of-lost-directions" class="section section-sea" aria-labelledby="sea-title">
+      <h1 id="sea-title" class="visually-hidden">The Sea of Lost Directions</h1>
+      <div class="sea-container">
+        <svg class="ocean-map" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <pattern id="wave-pattern" patternUnits="userSpaceOnUse" width="60" height="30">
+              <path d="M0 15 Q15 5 30 15 T60 15" fill="none" stroke="#6F4E37" stroke-width="0.5" opacity="0.15"/>
+            </pattern>
+            <linearGradient id="ocean-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#3d5a6e"/>
+              <stop offset="50%" stop-color="#2a4555"/>
+              <stop offset="100%" stop-color="#1a2f3d"/>
+            </linearGradient>
+            <filter id="paper-texture">
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
+              <feDiffuseLighting in="noise" lighting-color="#EFE6D5" surfaceScale="1">
+                <feDistantLight azimuth="45" elevation="60"/>
+              </feDiffuseLighting>
+            </filter>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#ocean-gradient)"/>
+          <rect width="100%" height="100%" fill="url(#wave-pattern)" class="wave-layer"/>
+          <!-- Islands emerge on scroll -->
+          <g class="island-group island-1" data-emerge="0.15">
+            <path class="coastline-draw" d="M200,450 Q220,420 250,430 Q280,440 300,460 Q290,480 260,490 Q230,485 200,450" fill="#B98D58" fill-opacity="0" stroke="#B98D58" stroke-width="2"/>
+          </g>
+          <g class="island-group island-2" data-emerge="0.25">
+            <path class="coastline-draw" d="M500,380 Q530,350 570,360 Q610,370 630,400 Q620,430 580,440 Q540,435 500,380" fill="#B98D58" fill-opacity="0" stroke="#B98D58" stroke-width="2"/>
+          </g>
+          <g class="island-group island-3" data-emerge="0.35">
+            <path class="coastline-draw" d="M850,500 Q880,470 920,480 Q960,490 980,520 Q970,550 930,560 Q890,555 850,500" fill="#B98D58" fill-opacity="0" stroke="#B98D58" stroke-width="2"/>
+          </g>
+          <g class="island-group island-4" data-emerge="0.45">
+            <path class="coastline-draw" d="M350,600 Q380,570 420,580 Q460,590 480,620 Q470,650 430,660 Q390,655 350,600" fill="#B98D58" fill-opacity="0" stroke="#B98D58" stroke-width="2"/>
+          </g>
+          <g class="island-group island-5" data-emerge="0.55">
+            <path class="coastline-draw" d="M700,250 Q730,220 770,230 Q810,240 830,270 Q820,300 780,310 Q740,305 700,250" fill="#B98D58" fill-opacity="0" stroke="#B98D58" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="floating-fragments" aria-hidden="true">
+          <span class="paper-fragment"></span>
+          <span class="paper-fragment"></span>
+          <span class="paper-fragment"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: The Cartographer's Desk -->
+    <section id="cartographers-desk" class="section section-desk" aria-labelledby="desk-title">
+      <h2 id="desk-title" class="section-title visually-hidden">The Cartographer's Desk</h2>
+      <div class="desk-scene">
+        <div class="desk-surface">
+          <a href="#hidden-continents" class="desk-artifact artifact-compass" aria-label="Navigate to Hidden Continents">
+            <svg viewBox="0 0 60 60" aria-hidden="true">
+              <circle cx="30" cy="30" r="26" fill="none" stroke="#B98D58" stroke-width="1"/>
+              <polygon points="30,8 34,30 30,27 26,30" fill="#6F4E37"/>
+              <polygon points="30,52 34,30 30,33 26,30" fill="#2E241B"/>
+            </svg>
+            <span class="artifact-label">Continents</span>
+          </a>
+          <a href="#routes-of-explorers" class="desk-artifact artifact-ink" aria-label="Navigate to Routes of Explorers">
+            <div class="ink-bottle"></div>
+            <span class="artifact-label">Routes</span>
+          </a>
+          <a href="#archive-of-discoveries" class="desk-artifact artifact-map" aria-label="Navigate to Archive of Discoveries">
+            <div class="torn-map"></div>
+            <span class="artifact-label">Archives</span>
+          </a>
+          <a href="#compass-chamber" class="desk-artifact artifact-tools" aria-label="Navigate to Compass Chamber">
+            <div class="measuring-tools"></div>
+            <span class="artifact-label">Compass</span>
+          </a>
+          <a href="#obsidian-harbor" class="desk-artifact artifact-notes" aria-label="Navigate to Obsidian Harbor">
+            <div class="expedition-notes"></div>
+            <span class="artifact-label">Harbor</span>
+          </a>
+          <a href="#sky-of-legends" class="desk-artifact artifact-quill" aria-label="Navigate to Sky of Legends">
+            <div class="quill-pen"></div>
+            <span class="artifact-label">Stars</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: The Hidden Continents -->
+    <section id="hidden-continents" class="section section-continents" aria-labelledby="continents-title">
+      <h2 id="continents-title" class="section-heading">The Hidden Continents</h2>
+      <p class="section-intro">Mysterious landmasses beyond the edges of known charts</p>
+      <div class="continents-grid">
+        <article class="continent continent-knowledge" data-region="knowledge">
+          <div class="continent-visual"></div>
+          <h3>The Kingdom of Knowledge</h3>
+          <p>Ancient libraries carved into mountain spires, where scrolls outnumber stars.</p>
+        </article>
+        <article class="continent continent-mysteries" data-region="mysteries">
+          <div class="continent-visual"></div>
+          <h3>The Desert of Mysteries</h3>
+          <p>Sands that shift to reveal ruins older than memory itself.</p>
+        </article>
+        <article class="continent continent-archives" data-region="archives">
+          <div class="continent-visual"></div>
+          <h3>The Frozen Archives</h3>
+          <p>Ice-bound vaults preserving expeditions lost to the northern winds.</p>
+        </article>
+        <article class="continent continent-emerald" data-region="emerald">
+          <div class="continent-visual"></div>
+          <h3>The Emerald Empire</h3>
+          <p>Jade jungles where cartographers mapped rivers of liquid gold.</p>
+        </article>
+        <article class="continent continent-storm" data-region="storm">
+          <div class="continent-visual"></div>
+          <h3>The Storm Isles</h3>
+          <p>Islands perpetually cloaked in thunder, home to sailors' wildest tales.</p>
+        </article>
+        <article class="continent continent-crimson" data-region="crimson">
+          <div class="continent-visual"></div>
+          <h3>The Crimson Coast</h3>
+          <p>Shores stained by sunset and the ink of a thousand voyages.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 4: The Routes of Explorers -->
+    <section id="routes-of-explorers" class="section section-routes" aria-labelledby="routes-title">
+      <h2 id="routes-title" class="section-heading">The Routes of Explorers</h2>
+      <p class="section-intro">Legendary paths traced by those who dared the unknown</p>
+      <div class="routes-map-container">
+        <svg class="routes-map" viewBox="0 0 1000 600" aria-label="Explorer routes world map">
+          <defs>
+            <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto">
+              <polygon points="0 0, 6 2, 0 4" fill="#B98D58"/>
+            </marker>
+          </defs>
+          <rect width="100%" height="100%" fill="#EFE6D5" opacity="0.3"/>
+          <!-- Route paths -->
+          <path class="route-path" data-route="northern" d="M150,300 Q300,200 450,250 Q600,300 750,200" fill="none" stroke="#6F4E37" stroke-width="1.5" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+          <path class="route-path" data-route="southern" d="M100,450 Q350,400 500,480 Q650,550 850,420" fill="none" stroke="#6F4E37" stroke-width="1.5" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+          <path class="route-path" data-route="eastern" d="M200,350 Q400,300 550,350 Q700,400 900,350" fill="none" stroke="#6F4E37" stroke-width="1.5" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+          <!-- Ships -->
+          <g class="ship ship-1" transform="translate(150,300)">
+            <path d="M0,0 L8,-4 L16,0 L8,4 Z" fill="#2E241B"/>
+            <line x1="8" y1="-4" x2="8" y2="-12" stroke="#6F4E37" stroke-width="0.5"/>
+          </g>
+          <g class="ship ship-2" transform="translate(100,450)">
+            <path d="M0,0 L8,-4 L16,0 L8,4 Z" fill="#2E241B"/>
+            <line x1="8" y1="-4" x2="8" y2="-12" stroke="#6F4E37" stroke-width="0.5"/>
+          </g>
+        </svg>
+        <div class="route-journals">
+          <button class="route-btn active" data-route="northern">The Northern Passage</button>
+          <button class="route-btn" data-route="southern">The Southern Current</button>
+          <button class="route-btn" data-route="eastern">The Eastern Wind</button>
+        </div>
+        <div class="journal-panel" aria-live="polite">
+          <div class="journal-content active" data-journal="northern">
+            <h3>Expedition Log — Northern Passage</h3>
+            <p class="journal-handwriting">Day 47. The ice receded today, revealing a coastline no chart has ever marked. We followed the aurora's edge until the sea turned to glass...</p>
+          </div>
+          <div class="journal-content" data-journal="southern">
+            <h3>Expedition Log — Southern Current</h3>
+            <p class="journal-handwriting">Day 112. The currents carry us toward islands that appear only at dusk. The navigator swears he saw cities beneath the waves...</p>
+          </div>
+          <div class="journal-content" data-journal="eastern">
+            <h3>Expedition Log — Eastern Wind</h3>
+            <p class="journal-handwriting">Day 23. Trade winds brought tales of a harbor where ships arrive from futures yet unwritten. We sail toward the dawn...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: The Archive of Discoveries -->
+    <section id="archive-of-discoveries" class="section section-archive" aria-labelledby="archive-title">
+      <h2 id="archive-title" class="section-heading">The Archive of Discoveries</h2>
+      <p class="section-intro">Floating maps orbit a central globe of accumulated wisdom</p>
+      <div class="archive-chamber">
+        <div class="archive-globe">
+          <div class="globe-sphere"></div>
+        </div>
+        <div class="orbiting-maps">
+          <article class="orbit-map" data-orbit="1">
+            <h3>Expeditions</h3>
+            <p>847 recorded voyages into the uncharted</p>
+          </article>
+          <article class="orbit-map" data-orbit="2">
+            <h3>Records</h3>
+            <p>12,000 pages of field observations</p>
+          </article>
+          <article class="orbit-map" data-orbit="3">
+            <h3>Stories</h3>
+            <p>Legends passed between generations of explorers</p>
+          </article>
+          <article class="orbit-map" data-orbit="4">
+            <h3>Findings</h3>
+            <p>Artifacts recovered from the deep</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: The Compass Chamber -->
+    <section id="compass-chamber" class="section section-compass-chamber" aria-labelledby="chamber-title">
+      <h2 id="chamber-title" class="section-heading">The Compass Chamber</h2>
+      <div class="brass-compass-container">
+        <svg class="brass-compass" viewBox="0 0 400 400" aria-label="Monumental brass compass">
+          <defs>
+            <radialGradient id="brass-gradient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#D4A574"/>
+              <stop offset="50%" stop-color="#B98D58"/>
+              <stop offset="100%" stop-color="#6F4E37"/>
+            </radialGradient>
+          </defs>
+          <circle cx="200" cy="200" r="180" fill="url(#brass-gradient)" stroke="#2E241B" stroke-width="3"/>
+          <circle cx="200" cy="200" r="160" fill="none" stroke="#2E241B" stroke-width="1" opacity="0.5"/>
+          <g class="brass-needle">
+            <polygon points="200,40 210,200 200,190 190,200" fill="#2E241B"/>
+            <polygon points="200,360 210,200 200,210 190,200" fill="#EFE6D5"/>
+          </g>
+          <circle cx="200" cy="200" r="15" fill="#2E241B"/>
+          <text x="200" y="30" text-anchor="middle" font-size="18" fill="#2E241B" font-family="Cinzel">N</text>
+          <text x="370" y="205" text-anchor="middle" font-size="14" fill="#2E241B" font-family="Cinzel">E</text>
+          <text x="200" y="385" text-anchor="middle" font-size="14" fill="#2E241B" font-family="Cinzel">S</text>
+          <text x="30" y="205" text-anchor="middle" font-size="14" fill="#2E241B" font-family="Cinzel">W</text>
+        </svg>
+        <div class="direction-panels">
+          <article class="direction-panel" data-direction="north">
+            <h3>North — The Frozen Archives</h3>
+            <p>Where ice preserves the oldest maps ever drawn.</p>
+          </article>
+          <article class="direction-panel" data-direction="east">
+            <h3>East — The Emerald Empire</h3>
+            <p>Jade rivers and golden tributaries await.</p>
+          </article>
+          <article class="direction-panel" data-direction="south">
+            <h3>South — The Desert of Mysteries</h3>
+            <p>Sands that bury and reveal in equal measure.</p>
+          </article>
+          <article class="direction-panel" data-direction="west">
+            <h3>West — The Crimson Coast</h3>
+            <p>Where every sunset writes a new chapter.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: The Underground City -->
+    <section id="underground-city" class="section section-underground" aria-labelledby="underground-title">
+      <h2 id="underground-title" class="section-heading">The Underground City</h2>
+      <p class="section-intro">Beneath the atlas, an ancient civilization glows in the dark</p>
+      <div class="underground-scene">
+        <svg class="underground-map" viewBox="0 0 800 500" aria-hidden="true">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="100%" height="100%" fill="#1A1714"/>
+          <path class="tunnel tunnel-1" d="M100,250 Q200,200 300,250 Q400,300 500,250" fill="none" stroke="#B98D58" stroke-width="2" filter="url(#glow)" opacity="0.6"/>
+          <path class="tunnel tunnel-2" d="M300,250 Q400,150 500,200 Q600,250 700,200" fill="none" stroke="#B98D58" stroke-width="2" filter="url(#glow)" opacity="0.6"/>
+          <circle class="chamber chamber-1" cx="200" cy="250" r="30" fill="#6F4E37" opacity="0.8"/>
+          <circle class="chamber chamber-2" cx="400" cy="250" r="35" fill="#6F4E37" opacity="0.8"/>
+          <circle class="chamber chamber-3" cx="600" cy="200" r="28" fill="#6F4E37" opacity="0.8"/>
+        </svg>
+        <div class="chamber-info">
+          <article class="chamber-detail active" data-chamber="1">
+            <h3>The Cartography Vault</h3>
+            <p>Original plates used to print the first atlases of Korvio.</p>
+          </article>
+          <article class="chamber-detail" data-chamber="2">
+            <h3>The Navigator's Hall</h3>
+            <p>Instruments calibrated to stars that no longer exist.</p>
+          </article>
+          <article class="chamber-detail" data-chamber="3">
+            <h3>The Sealed Chamber</h3>
+            <p>Maps too dangerous to surface — guarded for centuries.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: The Sky of Legends -->
+    <section id="sky-of-legends" class="section section-sky" aria-labelledby="sky-title">
+      <h2 id="sky-title" class="section-heading">The Sky of Legends</h2>
+      <p class="section-intro">Ancient navigators read the stars as maps to mythical destinations</p>
+      <div class="constellation-scene">
+        <svg class="star-map" viewBox="0 0 800 600" aria-label="Constellation map">
+          <rect width="100%" height="100%" fill="#0d1117"/>
+          <!-- Constellation 1: The Navigator -->
+          <g class="constellation" data-constellation="navigator">
+            <circle cx="150" cy="120" r="3" fill="#EFE6D5" class="star"/>
+            <circle cx="200" cy="80" r="4" fill="#B98D58" class="star"/>
+            <circle cx="250" cy="130" r="3" fill="#EFE6D5" class="star"/>
+            <circle cx="180" cy="180" r="3" fill="#EFE6D5" class="star"/>
+            <line class="star-line" x1="150" y1="120" x2="200" y2="80" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+            <line class="star-line" x1="200" y1="80" x2="250" y2="130" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+            <line class="star-line" x1="250" y1="130" x2="180" y2="180" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+          </g>
+          <!-- Constellation 2: The Voyager -->
+          <g class="constellation" data-constellation="voyager">
+            <circle cx="500" cy="100" r="4" fill="#B98D58" class="star"/>
+            <circle cx="550" cy="150" r="3" fill="#EFE6D5" class="star"/>
+            <circle cx="600" cy="90" r="3" fill="#EFE6D5" class="star"/>
+            <circle cx="580" cy="200" r="3" fill="#EFE6D5" class="star"/>
+            <line class="star-line" x1="500" y1="100" x2="550" y2="150" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+            <line class="star-line" x1="550" y1="150" x2="600" y2="90" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+            <line class="star-line" x1="600" y1="90" x2="580" y2="200" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+          </g>
+          <!-- Constellation 3: The Lost Isle -->
+          <g class="constellation" data-constellation="lost-isle">
+            <circle cx="300" cy="400" r="3" fill="#EFE6D5" class="star"/>
+            <circle cx="350" cy="380" r="4" fill="#B98D58" class="star"/>
+            <circle cx="400" cy="420" r="3" fill="#EFE6D5" class="star"/>
+            <line class="star-line" x1="300" y1="400" x2="350" y2="380" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+            <line class="star-line" x1="350" y1="380" x2="400" y2="420" stroke="#B98D58" stroke-width="0.5" opacity="0"/>
+          </g>
+        </svg>
+        <div class="constellation-stories">
+          <article class="star-story active" data-constellation="navigator">
+            <h3>The Navigator</h3>
+            <p>Points toward the harbor where all journeys begin and end.</p>
+          </article>
+          <article class="star-story" data-constellation="voyager">
+            <h3>The Voyager</h3>
+            <p>Marks the route taken by the first expedition beyond the known world.</p>
+          </article>
+          <article class="star-story" data-constellation="lost-isle">
+            <h3>The Lost Isle</h3>
+            <p>Reveals itself only when three conditions align — tide, moon, and courage.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: The Obsidian Harbor -->
+    <section id="obsidian-harbor" class="section section-harbor" aria-labelledby="harbor-title">
+      <h2 id="harbor-title" class="section-heading">The Obsidian Harbor</h2>
+      <p class="section-intro">Lanterns illuminate vessels bearing discoveries from distant realms</p>
+      <div class="harbor-scene">
+        <div class="harbor-water"></div>
+        <div class="lanterns">
+          <span class="lantern"></span>
+          <span class="lantern"></span>
+          <span class="lantern"></span>
+          <span class="lantern"></span>
+          <span class="lantern"></span>
+        </div>
+        <div class="harbor-ships">
+          <article class="harbor-vessel" data-vessel="1">
+            <div class="vessel-hull"></div>
+            <h3>The Meridian</h3>
+            <p>Returned from the Frozen Archives with ice-locked charts</p>
+          </article>
+          <article class="harbor-vessel" data-vessel="2">
+            <div class="vessel-hull"></div>
+            <h3>The Dawn Chaser</h3>
+            <p>Bearing artifacts from the Emerald Empire</p>
+          </article>
+          <article class="harbor-vessel" data-vessel="3">
+            <div class="vessel-hull"></div>
+            <h3>The Silent Current</h3>
+            <p>Logs from voyages through the Storm Isles</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 10: The Last Uncharted Land -->
+    <section id="last-uncharted-land" class="section section-finale" aria-labelledby="finale-title">
+      <div class="fog-layer"></div>
+      <div class="finale-content">
+        <h2 id="finale-title" class="finale-heading">Every Map Ends Where Curiosity Begins</h2>
+        <div class="explorer-seal">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="55" fill="none" stroke="#B98D58" stroke-width="2"/>
+            <circle cx="60" cy="60" r="45" fill="none" stroke="#6F4E37" stroke-width="1"/>
+            <text x="60" y="55" text-anchor="middle" font-size="10" fill="#2E241B" font-family="Cinzel">KORVIO</text>
+            <text x="60" y="70" text-anchor="middle" font-size="6" fill="#6F4E37" font-family="Spectral">EXPEDITION</text>
+          </svg>
+        </div>
+        <a href="#sea-of-lost-directions" class="expedition-btn">
+          <span class="btn-text">Begin Your Expedition</span>
+          <span class="wax-seal"></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="atlas-footer">
+    <p>&copy; Korvio — A Digital Kingdom of Forgotten Maps</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

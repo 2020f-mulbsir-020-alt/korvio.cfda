@@ -1,0 +1,1293 @@
+/* ============================================
+   KORVIO — Aged Atlas Collection Theme
+   ============================================ */
+
+:root {
+  --primary: #2E241B;
+  --secondary: #B98D58;
+  --background: #EFE6D5;
+  --text: #1A1714;
+  --accent: #6F4E37;
+  --ocean-deep: #1a2f3d;
+  --ocean-mid: #2a4555;
+  --parchment-dark: #d9cdb8;
+
+  --font-heading: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cormorant Garamond', 'Cinzel', Georgia, serif;
+  --font-body: 'Spectral', Georgia, serif;
+  --font-ui: 'Inter', system-ui, sans-serif;
+
+  --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --section-min-height: 100vh;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background-color: var(--background);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Accessibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary);
+  color: var(--background);
+  font-family: var(--font-ui);
+  text-decoration: none;
+  border-radius: 0 0 4px 4px;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Typography */
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.section-intro {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-style: italic;
+  text-align: center;
+  color: var(--accent);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   COMPASS NAVIGATION
+   ============================================ */
+
+.compass-nav {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+}
+
+.compass-trigger {
+  width: 64px;
+  height: 64px;
+  border: none;
+  background: var(--background);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--accent);
+  box-shadow: 0 4px 20px rgba(46, 36, 27, 0.25),
+              inset 0 0 0 2px var(--secondary);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compass-trigger:hover,
+.compass-trigger:focus-visible {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(46, 36, 27, 0.35),
+              inset 0 0 0 2px var(--secondary);
+  outline: none;
+}
+
+.compass-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.compass-needle-group {
+  transform-origin: 40px 40px;
+  animation: needle-drift 8s ease-in-out infinite;
+}
+
+@keyframes needle-drift {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.compass-wheel {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%) scale(0);
+  width: 280px;
+  height: 280px;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--transition-slow), opacity var(--transition-medium);
+}
+
+.compass-wheel.is-open {
+  transform: translate(50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wheel-items {
+  list-style: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wheel-items li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.wheel-items a {
+  display: block;
+  padding: 0.5rem 1rem;
+  background: var(--background);
+  border: 1px solid var(--secondary);
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: 2px;
+  box-shadow: 0 2px 10px rgba(46, 36, 27, 0.2);
+  transition: background var(--transition-medium), color var(--transition-medium);
+}
+
+.wheel-items a:hover,
+.wheel-items a:focus-visible {
+  background: var(--primary);
+  color: var(--background);
+  outline: none;
+}
+
+.wheel-items li:nth-child(1) a { transform: translate(-50%, -50%) translateY(-120px); }
+.wheel-items li:nth-child(2) a { transform: translate(-50%, -50%) translate(85px, -85px); }
+.wheel-items li:nth-child(3) a { transform: translate(-50%, -50%) translate(120px, 0); }
+.wheel-items li:nth-child(4) a { transform: translate(-50%, -50%) translate(85px, 85px); }
+.wheel-items li:nth-child(5) a { transform: translate(-50%, -50%) translate(0, 120px); }
+.wheel-items li:nth-child(6) a { transform: translate(-50%, -50%) translate(-85px, 85px); }
+
+/* ============================================
+   SECTION BASE
+   ============================================ */
+
+.section {
+  position: relative;
+  min-height: var(--section-min-height);
+  padding: 4rem 1.5rem;
+}
+
+/* ============================================
+   SECTION 1 — SEA OF LOST DIRECTIONS
+   ============================================ */
+
+.section-sea {
+  padding: 0;
+  min-height: 200vh;
+  background: var(--ocean-deep);
+}
+
+.sea-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.ocean-map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wave-layer {
+  animation: wave-drift 20s linear infinite;
+}
+
+@keyframes wave-drift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(60px); }
+}
+
+.island-group {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.island-group.emerged {
+  opacity: 1;
+}
+
+.coastline-draw {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  transition: stroke-dashoffset 3s ease, fill-opacity 2s ease 1s;
+}
+
+.island-group.emerged .coastline-draw {
+  stroke-dashoffset: 0;
+  fill-opacity: 0.3;
+}
+
+.floating-fragments {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.paper-fragment {
+  position: absolute;
+  width: 40px;
+  height: 50px;
+  background: var(--background);
+  opacity: 0.4;
+  border: 1px solid var(--parchment-dark);
+  animation: float-fragment 15s ease-in-out infinite;
+}
+
+.paper-fragment:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; transform: rotate(-15deg); }
+.paper-fragment:nth-child(2) { top: 60%; right: 15%; animation-delay: -5s; transform: rotate(10deg); width: 30px; height: 40px; }
+.paper-fragment:nth-child(3) { bottom: 30%; left: 40%; animation-delay: -10s; transform: rotate(-5deg); width: 35px; height: 45px; }
+
+@keyframes float-fragment {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, -15deg)); }
+  50% { transform: translateY(-20px) rotate(calc(var(--rot, -15deg) + 5deg)); }
+}
+
+/* ============================================
+   SECTION 2 — CARTOGRAPHER'S DESK
+   ============================================ */
+
+.section-desk {
+  background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--accent) 30%, var(--primary) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.desk-scene {
+  width: 100%;
+  max-width: 900px;
+}
+
+.desk-surface {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: linear-gradient(145deg, #4a3728 0%, var(--primary) 50%, #1a1410 100%);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+              inset 0 2px 4px rgba(255, 255, 255, 0.05);
+  border: 3px solid #3d2e22;
+}
+
+.desk-artifact {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--background);
+  transition: transform var(--transition-medium);
+  cursor: pointer;
+}
+
+.desk-artifact:hover,
+.desk-artifact:focus-visible {
+  transform: scale(1.1) translateY(-4px);
+  outline: none;
+}
+
+.artifact-label {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.desk-artifact:hover .artifact-label,
+.desk-artifact:focus-visible .artifact-label {
+  opacity: 1;
+}
+
+.artifact-compass { top: 15%; left: 10%; }
+.artifact-compass svg { width: 50px; height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+
+.artifact-ink { top: 20%; right: 15%; }
+.ink-bottle {
+  width: 24px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 4px 4px 8px 8px;
+  border: 2px solid var(--secondary);
+  position: relative;
+}
+.ink-bottle::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.artifact-map { bottom: 25%; left: 20%; }
+.torn-map {
+  width: 80px;
+  height: 60px;
+  background: var(--background);
+  border: 1px solid var(--parchment-dark);
+  transform: rotate(-8deg);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  clip-path: polygon(0 5%, 95% 0, 100% 90%, 5% 100%);
+}
+
+.artifact-tools { top: 40%; left: 45%; }
+.measuring-tools {
+  width: 60px;
+  height: 8px;
+  background: var(--secondary);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.artifact-notes { bottom: 20%; right: 25%; }
+.expedition-notes {
+  width: 50px;
+  height: 70px;
+  background: var(--background);
+  border: 1px solid var(--parchment-dark);
+  transform: rotate(5deg);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+.artifact-quill { top: 30%; right: 40%; }
+.quill-pen {
+  width: 4px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--secondary), var(--primary));
+  transform: rotate(-20deg);
+  border-radius: 2px;
+}
+
+/* ============================================
+   SECTION 3 — HIDDEN CONTINENTS
+   ============================================ */
+
+.section-continents {
+  background: var(--background);
+  padding: 6rem 1.5rem;
+}
+
+.continents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.continent {
+  background: var(--parchment-dark);
+  border: 1px solid var(--secondary);
+  padding: 2rem;
+  border-radius: 4px;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  cursor: default;
+}
+
+.continent:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(46, 36, 27, 0.15);
+}
+
+.continent-visual {
+  width: 100%;
+  height: 120px;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+}
+
+.continent-knowledge .continent-visual {
+  background: linear-gradient(135deg, #4a6741 0%, #2d4a28 100%);
+  clip-path: polygon(20% 80%, 40% 20%, 60% 40%, 80% 10%, 90% 70%, 50% 90%);
+}
+
+.continent-mysteries .continent-visual {
+  background: linear-gradient(135deg, #c4a574 0%, #8b6914 100%);
+  clip-path: polygon(10% 60%, 30% 30%, 50% 50%, 70% 20%, 90% 60%, 60% 85%);
+}
+
+.continent-archives .continent-visual {
+  background: linear-gradient(135deg, #a8c4d4 0%, #5a7a8a 100%);
+  clip-path: polygon(15% 70%, 35% 40%, 55% 60%, 75% 30%, 85% 75%, 45% 90%);
+}
+
+.continent-emerald .continent-visual {
+  background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+  clip-path: polygon(25% 75%, 45% 25%, 65% 45%, 85% 15%, 95% 65%, 55% 85%);
+}
+
+.continent-storm .continent-visual {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  clip-path: polygon(5% 55%, 25% 35%, 45% 55%, 65% 25%, 85% 55%, 55% 80%);
+}
+
+.continent-crimson .continent-visual {
+  background: linear-gradient(135deg, #8b3a3a 0%, #5a2020 100%);
+  clip-path: polygon(20% 65%, 40% 35%, 60% 55%, 80% 25%, 90% 70%, 50% 88%);
+}
+
+.continent h3 {
+  margin-bottom: 0.75rem;
+}
+
+.continent p {
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+/* ============================================
+   SECTION 4 — ROUTES OF EXPLORERS
+   ============================================ */
+
+.section-routes {
+  background: linear-gradient(180deg, var(--background) 0%, var(--parchment-dark) 100%);
+  padding: 6rem 1.5rem;
+}
+
+.routes-map-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.routes-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  background: var(--background);
+}
+
+.route-path.animated {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 4s ease;
+}
+
+.ship {
+  animation: ship-sail 20s linear infinite;
+}
+
+.ship-1 { animation-delay: 0s; }
+.ship-2 { animation-delay: -10s; }
+
+@keyframes ship-sail {
+  0% { transform: translate(150px, 300px); }
+  25% { transform: translate(450px, 250px); }
+  50% { transform: translate(750px, 200px); }
+  75% { transform: translate(450px, 250px); }
+  100% { transform: translate(150px, 300px); }
+}
+
+.route-journals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.route-btn {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-medium);
+}
+
+.route-btn:hover,
+.route-btn.active {
+  background: var(--primary);
+  color: var(--background);
+  border-color: var(--primary);
+}
+
+.journal-panel {
+  background: var(--background);
+  border: 1px solid var(--secondary);
+  padding: 2rem;
+  min-height: 180px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(46, 36, 27, 0.05);
+}
+
+.journal-content {
+  display: none;
+  animation: ink-spread 0.8s ease;
+}
+
+.journal-content.active {
+  display: block;
+}
+
+@keyframes ink-spread {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.journal-handwriting {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--accent);
+  margin-top: 1rem;
+}
+
+/* ============================================
+   SECTION 5 — ARCHIVE OF DISCOVERIES
+   ============================================ */
+
+.section-archive {
+  background: var(--primary);
+  color: var(--background);
+  padding: 6rem 1.5rem;
+  overflow: hidden;
+}
+
+.section-archive .section-heading,
+.section-archive .section-intro {
+  color: var(--background);
+}
+
+.section-archive .section-intro {
+  opacity: 0.8;
+}
+
+.archive-chamber {
+  position: relative;
+  width: min(500px, 90vw);
+  height: min(500px, 90vw);
+  margin: 0 auto;
+}
+
+.archive-globe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.globe-sphere {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--secondary), var(--accent));
+  box-shadow: 0 0 40px rgba(185, 141, 88, 0.4),
+              inset -10px -10px 30px rgba(0, 0, 0, 0.3);
+  animation: globe-rotate 30s linear infinite;
+}
+
+@keyframes globe-rotate {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.orbiting-maps {
+  position: absolute;
+  inset: 0;
+  animation: orbit-spin 60s linear infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbit-map {
+  position: absolute;
+  width: 140px;
+  padding: 1rem;
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+  text-align: center;
+  animation: orbit-counter 60s linear infinite;
+}
+
+.orbit-map h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.orbit-map p {
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.orbit-map[data-orbit="1"] { top: 0; left: 50%; transform: translateX(-50%); }
+.orbit-map[data-orbit="2"] { top: 50%; right: 0; transform: translateY(-50%); }
+.orbit-map[data-orbit="3"] { bottom: 0; left: 50%; transform: translateX(-50%); }
+.orbit-map[data-orbit="4"] { top: 50%; left: 0; transform: translateY(-50%); }
+
+@keyframes orbit-counter {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.orbit-map[data-orbit="1"] { animation: orbit-counter-1 60s linear infinite; }
+.orbit-map[data-orbit="2"] { animation: orbit-counter-2 60s linear infinite; }
+.orbit-map[data-orbit="3"] { animation: orbit-counter-3 60s linear infinite; }
+.orbit-map[data-orbit="4"] { animation: orbit-counter-4 60s linear infinite; }
+
+@keyframes orbit-counter-1 {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(-360deg); }
+}
+@keyframes orbit-counter-2 {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(-360deg); }
+}
+@keyframes orbit-counter-3 {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(-360deg); }
+}
+@keyframes orbit-counter-4 {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(-360deg); }
+}
+
+/* ============================================
+   SECTION 6 — COMPASS CHAMBER
+   ============================================ */
+
+.section-compass-chamber {
+  background: var(--background);
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.brass-compass-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.brass-compass {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto 3rem;
+  display: block;
+  filter: drop-shadow(0 10px 30px rgba(46, 36, 27, 0.3));
+}
+
+.brass-needle {
+  transform-origin: 200px 200px;
+  animation: brass-needle 12s ease-in-out infinite;
+}
+
+@keyframes brass-needle {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.direction-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+
+.direction-panel {
+  padding: 1.5rem;
+  background: var(--parchment-dark);
+  border-left: 3px solid var(--secondary);
+  opacity: 0.6;
+  transition: opacity var(--transition-medium), transform var(--transition-medium);
+}
+
+.direction-panel.active {
+  opacity: 1;
+  transform: scale(1.02);
+  border-left-color: var(--primary);
+}
+
+.direction-panel h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.direction-panel p {
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+/* ============================================
+   SECTION 7 — UNDERGROUND CITY
+   ============================================ */
+
+.section-underground {
+  background: #0d0b0a;
+  color: var(--background);
+  padding: 6rem 1.5rem;
+}
+
+.section-underground .section-heading {
+  color: var(--secondary);
+}
+
+.section-underground .section-intro {
+  color: var(--parchment-dark);
+}
+
+.underground-scene {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.underground-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.tunnel {
+  stroke-dasharray: 500;
+  animation: tunnel-pulse 3s ease-in-out infinite;
+}
+
+.tunnel-2 { animation-delay: -1.5s; }
+
+@keyframes tunnel-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.chamber {
+  cursor: pointer;
+  transition: r 0.3s, opacity 0.3s;
+}
+
+.chamber:hover {
+  opacity: 1;
+}
+
+.chamber-info {
+  margin-top: 2rem;
+}
+
+.chamber-detail {
+  display: none;
+  padding: 1.5rem;
+  background: rgba(111, 78, 55, 0.3);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+}
+
+.chamber-detail.active {
+  display: block;
+  animation: ink-spread 0.6s ease;
+}
+
+.chamber-detail h3 {
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   SECTION 8 — SKY OF LEGENDS
+   ============================================ */
+
+.section-sky {
+  background: #0d1117;
+  color: var(--background);
+  padding: 6rem 1.5rem;
+}
+
+.section-sky .section-heading {
+  color: var(--secondary);
+}
+
+.section-sky .section-intro {
+  color: var(--parchment-dark);
+}
+
+.constellation-scene {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.star-map {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.star {
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+.star:nth-child(2) { animation-delay: -1s; }
+.star:nth-child(3) { animation-delay: -2s; }
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.constellation.connected .star-line {
+  opacity: 0.6;
+  transition: opacity 1s ease;
+}
+
+.constellation-stories {
+  margin-top: 2rem;
+}
+
+.star-story {
+  display: none;
+  padding: 1.5rem;
+  background: rgba(185, 141, 88, 0.1);
+  border: 1px solid var(--secondary);
+  border-radius: 4px;
+}
+
+.star-story.active {
+  display: block;
+  animation: ink-spread 0.6s ease;
+}
+
+.star-story h3 {
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   SECTION 9 — OBSIDIAN HARBOR
+   ============================================ */
+
+.section-harbor {
+  background: linear-gradient(180deg, #1a1714 0%, #2E241B 50%, #1a2f3d 100%);
+  color: var(--background);
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+.section-harbor .section-heading {
+  color: var(--secondary);
+}
+
+.section-harbor .section-intro {
+  color: var(--parchment-dark);
+}
+
+.harbor-scene {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 400px;
+}
+
+.harbor-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(26, 47, 61, 0.8));
+  animation: water-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes water-shimmer {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.lanterns {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.lantern {
+  width: 20px;
+  height: 30px;
+  background: radial-gradient(ellipse at center, #ffd699, #B98D58);
+  border-radius: 50% 50% 40% 40%;
+  box-shadow: 0 0 20px rgba(255, 214, 153, 0.6);
+  animation: lantern-flicker 2s ease-in-out infinite;
+}
+
+.lantern:nth-child(2) { animation-delay: -0.5s; }
+.lantern:nth-child(3) { animation-delay: -1s; }
+.lantern:nth-child(4) { animation-delay: -1.5s; }
+.lantern:nth-child(5) { animation-delay: -2s; }
+
+@keyframes lantern-flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
+.harbor-ships {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+  margin-top: 3rem;
+}
+
+.harbor-vessel {
+  background: rgba(46, 36, 27, 0.6);
+  border: 1px solid var(--secondary);
+  padding: 1.5rem;
+  border-radius: 4px;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.harbor-vessel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(185, 141, 88, 0.2);
+}
+
+.vessel-hull {
+  width: 60px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 0 0 50% 50%;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.vessel-hull::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 30px;
+  background: var(--accent);
+}
+
+.harbor-vessel h3 {
+  color: var(--secondary);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.harbor-vessel p {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* ============================================
+   SECTION 10 — LAST UNCHARTED LAND
+   ============================================ */
+
+.section-finale {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--background) 100%);
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+}
+
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(239, 230, 213, 0.9) 70%);
+  opacity: 1;
+  transition: opacity 3s ease;
+  pointer-events: none;
+}
+
+.section-finale.fog-cleared .fog-layer {
+  opacity: 0;
+}
+
+.finale-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 2s ease 1s, transform 2s ease 1s;
+}
+
+.section-finale.fog-cleared .finale-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.finale-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 5vw, 2.75rem);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+
+.explorer-seal {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2.5rem;
+}
+
+.explorer-seal svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 15px rgba(46, 36, 27, 0.3));
+}
+
+.expedition-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1.25rem 2.5rem;
+  background: var(--primary);
+  color: var(--background);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--secondary);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  overflow: hidden;
+}
+
+.expedition-btn:hover,
+.expedition-btn:focus-visible {
+  transform: translateY(2px);
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+.expedition-btn:hover .wax-seal,
+.expedition-btn:focus-visible .wax-seal {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wax-seal {
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #8b2020, #5a1010);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.4s, transform 0.4s;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
+}
+
+/* Footer */
+.atlas-footer {
+  background: var(--primary);
+  color: var(--parchment-dark);
+  text-align: center;
+  padding: 2rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE FIRST
+   ============================================ */
+
+@media (max-width: 768px) {
+  .compass-nav {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .compass-trigger {
+    width: 52px;
+    height: 52px;
+  }
+
+  .compass-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .compass-wheel {
+    width: 240px;
+    height: 240px;
+  }
+
+  .wheel-items a {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .section-sea {
+    min-height: 150vh;
+  }
+
+  .desk-surface {
+    aspect-ratio: 4/3;
+  }
+
+  .desk-artifact {
+    transform: scale(0.85);
+  }
+
+  .desk-artifact:hover {
+    transform: scale(0.95) translateY(-4px);
+  }
+
+  .continents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .archive-chamber {
+    width: min(350px, 85vw);
+    height: min(350px, 85vw);
+  }
+
+  .orbit-map {
+    width: 110px;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .brass-compass {
+    max-width: 280px;
+  }
+
+  .harbor-ships {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .route-journals {
+    flex-direction: column;
+  }
+
+  .route-btn {
+    width: 100%;
+  }
+
+  .finale-heading {
+    font-size: 1.35rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .compass-needle-group,
+  .brass-needle,
+  .orbiting-maps,
+  .orbit-map,
+  .ship,
+  .globe-sphere {
+    animation: none !important;
+  }
+}
